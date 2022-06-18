@@ -11,6 +11,8 @@ public class TestMyDB {
         Connection conn=db.getConnection();
         if (conn != null)
             System.out.println("Połaczenie z bazą danych nawiazane");
+        db.closeConnection();
+        System.out.println("Połączenie z bazą zakonczone");
     }
 
 
