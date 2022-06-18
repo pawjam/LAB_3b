@@ -11,7 +11,11 @@ public class MyDB {
     private String host;
     private Integer port;
     private String db;
-
+    public MyDB(String host, Integer port, String db){
+        this.host=host;
+        this.port=port;
+        this.db=db;
+    }
     public void setUser(String user) {
         this.user = user;
     }
@@ -19,11 +23,7 @@ public class MyDB {
     public void setPassword(String password) {
         this.password = password;
     }
-    public MyDB(String host, Integer port, String db){
-            this.host=host;
-            this.port=port;
-            this.db=db;
-    }
+
     private Connection conn=null;
     private void connect(){
         Properties connectionProps= new Properties();
