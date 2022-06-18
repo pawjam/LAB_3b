@@ -1,8 +1,6 @@
 package pl.lublin.wsei.cwiczenia.lab3b.lab_3b;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class MyDB {
@@ -11,6 +9,8 @@ public class MyDB {
     private String host;
     private Integer port;
     private String db;
+    private Connection conn=null;
+    private Statement statement=null;
     public MyDB(String host, Integer port, String db){
         this.host=host;
         this.port=port;
@@ -24,7 +24,7 @@ public class MyDB {
         this.password = password;
     }
 
-    private Connection conn=null;
+    //private Connection conn=null;
     private void connect(){
         Properties connectionProps= new Properties();
         connectionProps.put("user","root");
@@ -35,6 +35,7 @@ public class MyDB {
             conn= DriverManager.getConnection(
                     jdbcString,connectionProps
             );
+            statement=conn.createStatement();
         }
         catch (SQLException e){
             System.out.println("Błąd połączenia do bazy: "+jdbcString);
@@ -56,6 +57,20 @@ public class MyDB {
                 System.out.println("Bład przy zamykaniu połączenia bazodanowego: "+e.getMessage());
         }
     }
+    public ResultSet selectData(String selectStatement){
+        if((conn != null)&&(statement != null)){
+            try{
+                return statement.executeQuery(selectStatement);
+            }
+            catch (SQLException e){
+                System.out.print("Błąd realizacji zapytania: +"+selectStatement+", "+e.getMessage());
+
+            }
+
+        }
+        return null;
+    }
+
 
 
 
